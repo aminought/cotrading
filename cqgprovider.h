@@ -8,11 +8,10 @@
 
 class CqgProvider: public QuotesProvider {
 public:
-    CqgProvider();
+    CqgProvider(std::unique_ptr<CqgClient> client): client(std::move(client)) {}
     std::tuple<std::string, std::chrono::system_clock::time_point> logon();
 private:
-    std::string host_name;
-    CqgClient client;
+    std::unique_ptr<CqgClient> client;
 };
 
 #endif // CQGPROVIDER_H
