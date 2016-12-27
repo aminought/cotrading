@@ -1,5 +1,5 @@
 #include "cqgprovider.h"
-#include "webapi_1.pb.h"
+#include "../libs/cqg_webapi/webapi_1.pb.h"
 
 #include <iostream>
 

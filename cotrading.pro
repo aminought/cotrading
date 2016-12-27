@@ -1,32 +1,20 @@
-TEMPLATE = app
+TEMPLATE = subdirs
 
-QT += qml quick
 CONFIG += c++14
+CONFIG += qt
 
-SOURCES += main.cpp \
-    quotesprovider.cpp \
-    cqgprovider.cpp \
-    cqgclient.cpp \
-    webapi_1.pb.cc \
-    config.cpp \
-    menucontroller.cpp \
-    settingscontroller.cpp
+SUBDIRS += src \
+    app \
+    tests
 
-RESOURCES += qml.qrc
+app.depends = src
+tests.depends = src
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+CONFIG(debug, debug|release) {
+    DESTDIR = build/debug
+} else {
+    DESTDIR = build/release
+}
 
 # Default rules for deployment.
 include(deployment.pri)
-
-HEADERS += \
-    quotesprovider.h \
-    cqgprovider.h \
-    cqgclient.h \
-    webapi_1.pb.h \
-    config.h \
-    menucontroller.h \
-    settingscontroller.h
-
-LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto

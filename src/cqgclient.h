@@ -3,7 +3,7 @@
 
 #include <string>
 #include <thread>
-#include "Simple-WebSocket-Server/client_wss.hpp"
+#include "../libs/Simple-WebSocket-Server/client_wss.hpp"
 
 using WSSClient = SimpleWeb::SocketClient<SimpleWeb::WSS>;
 

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <QTemporaryFile>
-#include "../config.h"
+#include "config.h"
 
 using namespace std;
 

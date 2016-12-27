@@ -4,12 +4,10 @@ CONFIG -= app_bundle
 CONFIG += qt
 
 SOURCES += main.cpp \
-    ../config.cpp \
     config_test.cpp
 
-LIBS += -lgtest
+LIBS += -L../src -lgtest -lcotrading
+
+INCLUDEPATH += ../src
 
 DISTFILES +=
-
-HEADERS += \
-    ../config.h
