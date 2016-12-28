@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>logon_answer.txt</file>
+    </qresource>
+</RCC>

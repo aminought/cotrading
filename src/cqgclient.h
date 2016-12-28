@@ -9,17 +9,19 @@ using WSSClient = SimpleWeb::SocketClient<SimpleWeb::WSS>;
 
 class CqgClient {
 public:
+    CqgClient() = default;
     CqgClient(std::string user_name, std::string password, std::string client_id, int account_id):
         user_name(std::move(user_name)),
         password(std::move(password)),
         client_id(std::move(client_id)),
         account_id(account_id) {}
-    void connect();
-    std::string send_and_receive(std::string);
-    std::string get_user_name() const;
-    std::string get_password() const;
-    std::string get_client_id() const;
-    int get_account_id() const;
+    virtual ~CqgClient() = default;
+    virtual void connect();
+    virtual std::string send_and_receive(std::string);
+    virtual std::string get_user_name() const;
+    virtual std::string get_password() const;
+    virtual std::string get_client_id() const;
+    virtual int get_account_id() const;
 
 private:
     std::string user_name;

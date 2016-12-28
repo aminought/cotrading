@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
 CONFIG += c++14
-CONFIG += qt
 
 SUBDIRS += src \
     app \

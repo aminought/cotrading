@@ -25,4 +25,4 @@ HEADERS += \
     settingscontroller.h \
     ../libs/cqg_webapi/webapi_1.pb.h
 
-LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto
+LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto -lboost_date_time

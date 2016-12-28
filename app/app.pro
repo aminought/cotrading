@@ -1,9 +1,10 @@
 include(../deployment.pri)
 
-QT += qml quick
+QT += qml quick charts
 CONFIG += c++14
 CONFIG += qt
 CONFIG -= app_bundle
+
 
 TEMPLATE = app
 

@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQmlComponent>
@@ -7,7 +7,8 @@
 #include "config.h"
 
 int main(int argc, char *argv[]) {
-    QGuiApplication app(argc, argv);
+    // QtCharts depends on QtWidgets, so need to instantiate QApplication instead of QGuiApplication
+    QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

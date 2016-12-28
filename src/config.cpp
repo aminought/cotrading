@@ -53,9 +53,9 @@ void Config::set(Value category, std::string value) {
 
 std::unique_ptr<std::map<Value, std::string>> Config::get_connection_config() {
     auto conf = std::make_unique<std::map<Value, std::string>>();
-    for(auto const& pair: config) {
+    for(auto const pair: config) {
         if(value_to_key[pair.first].find("Connection") == 0) {
-            conf->operator[](pair.first) = pair.second;
+            conf->insert(pair);
         }
     }
     return conf;

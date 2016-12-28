@@ -4,12 +4,12 @@
 #include "cqgclient.h"
 #include "quotesprovider.h"
 #include <string>
-#include <chrono>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 class CqgProvider: public QuotesProvider {
 public:
     CqgProvider(std::unique_ptr<CqgClient> client): client(std::move(client)) {}
-    std::tuple<std::string, std::chrono::system_clock::time_point> logon();
+    std::tuple<std::string, boost::posix_time::ptime> logon();
 private:
     std::unique_ptr<CqgClient> client;
 };
