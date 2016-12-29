@@ -44,3 +44,12 @@ std::string CqgClient::get_client_id() const {
 int CqgClient::get_account_id() const {
     return account_id;
 }
+
+void CqgClient::create_session(std::string token, bpt::ptime base_time) {
+    session = std::make_shared<CqgSession>(token, base_time);
+}
+
+// use std::weak_ptr because session could be terminated
+std::weak_ptr<CqgSession> CqgClient::get_session() const {
+    return std::weak_ptr<CqgSession>(session);
+}

@@ -15,8 +15,8 @@ enum class Value {
 class Config {
 public:
     Config();
-    void load(std::string path = Config::path);
-    void save(std::string path = Config::path);
+    void load(const std::string& path = Config::path);
+    void save(const std::string& path = Config::path);
     void set(std::map<Value, std::string> values);
     void set(Value category, std::string value);
     std::unique_ptr<std::map<Value, std::string> > get_connection_config();

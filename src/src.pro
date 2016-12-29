@@ -14,7 +14,12 @@ SOURCES += \
     config.cpp \
     menucontroller.cpp \
     settingscontroller.cpp \
-    ../libs/cqg_webapi/webapi_1.pb.cc
+    ../libs/cqg_webapi/webapi_1.pb.cc \
+    cqgsession.cpp \
+    providersession.cpp \
+    providerconnection.cpp \
+    cqgconnection.cpp \
+    providerconnectionfactory.cpp
 
 HEADERS += \
     quotesprovider.h \
@@ -23,6 +28,13 @@ HEADERS += \
     config.h \
     menucontroller.h \
     settingscontroller.h \
-    ../libs/cqg_webapi/webapi_1.pb.h
+    ../libs/cqg_webapi/webapi_1.pb.h \
+    cqgsession.h \
+    providersession.h \
+    providerconnection.h \
+    cqgconnection.h \
+    providerconnectionfactory.h
 
 LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto -lboost_date_time
+
+QMAKE_CXXFLAGS += -isystem "../../../src/../libs"

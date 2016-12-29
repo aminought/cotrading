@@ -20,7 +20,7 @@ void Config::put_value(Value value, boost::property_tree::ptree pt) {
 
 namespace ptree = boost::property_tree;
 
-void Config::load(std::string path) {
+void Config::load(const std::string& path) {
     try {
         ptree::ptree pt;
         ptree::ini_parser::read_ini(path, pt);
@@ -33,7 +33,7 @@ void Config::load(std::string path) {
     }
 }
 
-void Config::save(std::string path) {
+void Config::save(const std::string& path) {
     ptree::ptree pt;
     for(auto const& c: config) {
         pt.put(ptree::ptree::path_type(value_to_key[c.first], '/'), c.second);

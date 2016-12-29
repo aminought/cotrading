@@ -19,8 +19,8 @@ public:
 using ::testing::Return;
 using ::testing::_;
 
-TEST(LOGIN, CQGPROVIDER_TEST) {
-    std::unique_ptr<MockClient> client = std::make_unique<MockClient>();
+TEST(LOG0N, CQGPROVIDER_TEST) {
+    auto client = std::make_shared<MockClient>();
 
     QFile file(":/logon_answer.txt");
     std::string answer;
@@ -35,9 +35,11 @@ TEST(LOGIN, CQGPROVIDER_TEST) {
     EXPECT_CALL(*client.get(), get_client_id()).WillRepeatedly(Return("cid"));
     EXPECT_CALL(*client.get(), send_and_receive(_)).WillOnce(Return(answer));
 
-    auto provider = CqgProvider(std::move(client));
-    auto logon_result = provider.logon();
+    auto provider = CqgProvider(client);
+    provider.logon();
 
-    EXPECT_EQ("gJD9KRdT+g0gmtxNAefd0BeREd8dS5tbddeBJt/zi4I", std::get<0>(logon_result));
-    EXPECT_EQ(boost::posix_time::ptime(boost::posix_time::time_from_string("2016-12-24 02:31:51")), std::get<1>(logon_result));
+    auto session = client->get_session().lock();
+    EXPECT_EQ("gJD9KRdT+g0gmtxNAefd0BeREd8dS5tbddeBJt/zi4I", session->get_token());
+    EXPECT_EQ(boost::posix_time::ptime(boost::posix_time::time_from_string("2016-12-24 02:31:51")),
+              session->get_base_time());
 }

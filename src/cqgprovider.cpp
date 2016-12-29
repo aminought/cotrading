@@ -1,10 +1,14 @@
 #include "cqgprovider.h"
 #include "../libs/cqg_webapi/webapi_1.pb.h"
-
 #include <iostream>
 #include <string>
+#include <boost/date_time/posix_time/ptime.hpp>
+#include <boost/date_time/time_parsing.hpp>
 
-std::tuple<std::string, boost::posix_time::ptime> CqgProvider::logon() {
+namespace bpt = boost::posix_time;
+namespace bdt = boost::date_time;
+
+void CqgProvider::logon() {
     auto client_msg = WebAPI_1::ClientMsg();
     auto logon = client_msg.mutable_logon();
 
@@ -22,10 +26,9 @@ std::tuple<std::string, boost::posix_time::ptime> CqgProvider::logon() {
     auto logon_result = server_msg.logon_result();
     if(logon_result.result_code() == 0) {
         auto base_time_str = logon_result.base_time();
-        auto base_time = boost::date_time::parse_delimited_time<boost::posix_time::ptime>(base_time_str, 'T');
+        auto base_time = bdt::parse_delimited_time<bpt::ptime>(base_time_str, 'T');
         std::string token = logon_result.session_token();
-        return std::tuple<std::string, boost::posix_time::ptime>(token, base_time);
-    }
 
-    return std::tuple<std::string, boost::posix_time::ptime>();
+        this->client->create_session(token, base_time);
+    }
 }
