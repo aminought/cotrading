@@ -13,6 +13,8 @@ SOURCES += main.cpp
 LIBS += -L../src -lcotrading
 
 INCLUDEPATH += ../src
+INCLUDEPATH += ../libs/websocketpp
+INCLUDEPATH += ../libs
 
 RESOURCES += qml.qrc
 

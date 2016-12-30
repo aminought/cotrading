@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<Config> config = std::make_shared<Config>();
     config->load();
 
-    std::shared_ptr<ProviderConnection> provider_connection(nullptr);
+    std::shared_ptr<ProviderConnection> provider_connection;
 
     MenuController menu_controller(config, provider_connection);
     SettingsController settings_controller(config);

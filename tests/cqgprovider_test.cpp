@@ -13,12 +13,14 @@ public:
     MOCK_CONST_METHOD0(get_password, std::string());
     MOCK_CONST_METHOD0(get_client_id, std::string());
     MOCK_METHOD0(connect, void());
-    MOCK_METHOD1(send_and_receive, std::string(std::string));
+    MOCK_METHOD1(send, std::string(std::string));
+    MOCK_METHOD2(create_session, void(std::string, bpt::ptime));
 };
 
 using ::testing::Return;
 using ::testing::_;
 
+// TODO: Fix crash after all tests
 TEST(LOG0N, CQGPROVIDER_TEST) {
     auto client = std::make_shared<MockClient>();
 
@@ -33,7 +35,7 @@ TEST(LOG0N, CQGPROVIDER_TEST) {
     EXPECT_CALL(*client.get(), get_user_name()).WillOnce(Return("user"));
     EXPECT_CALL(*client.get(), get_password()).WillOnce(Return("password"));
     EXPECT_CALL(*client.get(), get_client_id()).WillRepeatedly(Return("cid"));
-    EXPECT_CALL(*client.get(), send_and_receive(_)).WillOnce(Return(answer));
+    EXPECT_CALL(*client.get(), send(_)).WillOnce(Return(answer));
 
     auto provider = CqgProvider(client);
     provider.logon();

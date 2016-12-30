@@ -10,6 +10,7 @@ SOURCES += main.cpp \
 LIBS += -L../src -lgtest -lgmock -lcotrading -lboost_system -lssl -lcrypto -lboost_date_time
 
 INCLUDEPATH += ../src
+INCLUDEPATH += ../libs/websocketpp
 
 DISTFILES +=
 

@@ -6,8 +6,8 @@
 
 class CqgConnection: public ProviderConnection {
 public:
-    CqgConnection(std::shared_ptr<CqgProvider> provider): ProviderConnection(provider) {}
-    void connect(std::shared_ptr<Config> config) override;
+    CqgConnection() = default;
+    std::unique_ptr<QuotesProvider> connect(std::shared_ptr<Config> config) override;
 };
 
 #endif // CQGCONNECTION_H

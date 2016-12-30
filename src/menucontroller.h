@@ -18,6 +18,7 @@ public slots:
 private:
     std::shared_ptr<Config> config;
     std::shared_ptr<ProviderConnection> provider_connection;
+    std::shared_ptr<QuotesProvider> provider;
 };
 
 #endif // MENUCONTROLLER_H

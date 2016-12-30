@@ -4,7 +4,7 @@
 #include <QDebug>
 
 
-void CqgConnection::connect(std::shared_ptr<Config> config) {
+std::unique_ptr<QuotesProvider> CqgConnection::connect(std::shared_ptr<Config> config) {
     auto conn_conf = config->get_connection_config();
 
     auto validate_config = [&conn_conf] () {
@@ -29,14 +29,16 @@ void CqgConnection::connect(std::shared_ptr<Config> config) {
 
         if(validate_credentials()) {
             std::unique_ptr<CqgClient> client = std::make_unique<CqgClient>(
-                                                    std::move(user_name), std::move(password),
-                                                    std::move(client_id), std::stoi(account_id));
-            this->provider = std::make_shared<CqgProvider>(std::move(client));
-            this->provider->logon();
+                                                    user_name, password,
+                                                    client_id, std::stoi(account_id));
+            auto provider = std::make_unique<CqgProvider>(std::move(client));
+            provider->logon();
+            return std::move(provider);
         } else {
             qDebug() << "Wrong arguments";
         }
     } else {
         qDebug() << "Empty config";
     }
+    return nullptr;
 }

@@ -10,8 +10,8 @@ ProviderConnectionFactory::ProviderConnectionFactory() {
 std::unique_ptr<ProviderConnection> ProviderConnectionFactory::get_provider_connection(ProviderType provider_type) {
     switch(provider_type) {
     case ProviderType::CQG:
-        return std::make_unique<CqgConnection>(std::make_shared<CqgProvider>(nullptr));
+        return std::make_unique<CqgConnection>();
     default:
-        return std::make_unique<CqgConnection>(std::make_shared<CqgProvider>(nullptr));
+        return std::make_unique<CqgConnection>();
     }
 }

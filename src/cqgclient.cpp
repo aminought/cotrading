@@ -1,9 +1,10 @@
 #include "cqgclient.h"
 
-std::string CqgClient::host_name = "demoapi.cqg.com:443";
+std::string uri = "wss://demoapi.cqg.com:443";
 
 void CqgClient::connect() {
-    this->client = std::make_unique<WSSClient>(CqgClient::host_name);
+    this->client = std::make_unique<WebSocketClient>();
+    this->client->connect(uri);
 }
 
 enum Opcode {
@@ -11,22 +12,8 @@ enum Opcode {
     BINARY = 130
 };
 
-std::string CqgClient::send_and_receive(std::string message) {
-    std::string m_str;
-    this->client->onmessage = [&m_str, this] (auto message) {
-        m_str.append(message->string());
-        this->client->stop();
-    };
-
-    this->client->onopen = [this, &message] () {
-        auto send_stream = std::make_shared<WSSClient::SendStream>();
-        *send_stream << message;
-        this->client->send(send_stream, nullptr, Opcode::BINARY);
-    };
-
-    this->client->start();
-
-    return m_str;
+std::string CqgClient::send(std::string message) {
+    return this->client->send(message);
 }
 
 std::string CqgClient::get_user_name() const {

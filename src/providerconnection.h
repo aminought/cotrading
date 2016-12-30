@@ -7,11 +7,8 @@
 
 class ProviderConnection {
 public:
-    ProviderConnection(std::shared_ptr<QuotesProvider> provider): provider(provider) {}
     virtual ~ProviderConnection() = default;
-    virtual void connect(std::shared_ptr<Config> config) = 0;
-protected:
-    std::shared_ptr<QuotesProvider> provider;
+    virtual std::unique_ptr<QuotesProvider> connect(std::shared_ptr<Config> config) = 0;
 };
 
 #endif // PROVIDERCONNECTION_H
