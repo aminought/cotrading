@@ -67,6 +67,6 @@ std::string WebSocketClient::get_next_answer(std::chrono::system_clock::duration
         std::this_thread::sleep_for(10ms);
     }
     std::string answer;
-    this->answer_queue.pop(&answer);
+    this->answer_queue.pop(&answer, 1);
     return answer;
 }

@@ -68,11 +68,42 @@ ApplicationWindow {
             title: qsTr("Connection")
 
             Menu {
+                id: cqgMenu
                 title: qsTr("CQG")
+
+                function createValueAxis(min, max) {
+                    return Qt.createQmlObject(
+                                "import QtQuick 2.5; import QtCharts 2.0; ValueAxis { min: "
+                                + min + "; max: " + max + " }", chartView)
+                }
+
+                function createDateTimeAxis(format) {
+                    var create_str = "import QtQuick 2.5; import QtCharts 2.0; DateTimeAxis { format: '" + format
+                            + "'; min: _chart_controller.x_min; max: _chart_controller.x_max}"
+                    return Qt.createQmlObject(create_str, chartView)
+                }
+
+                function createChart() {
+                    var line_series = chartView.createSeries(
+                                ChartView.SeriesTypeLine, "",
+                                cqgMenu.createDateTimeAxis("dd.MM.yyyy hh:mm"),
+                                cqgMenu.createValueAxis(
+                                    _chart_controller.y_min,
+                                    _chart_controller.y_max))
+                    var prices = _chart_controller.y
+                    var times = _chart_controller.x
+                    for(var i=0; i<prices.length; ++i) {
+                        line_series.append(times[i], prices[i])
+                    }
+
+                }
 
                 MenuItem {
                     text: qsTr("Connect")
-                    onTriggered: _menu_controller.connect(100)
+                    onTriggered: {
+                        _menu_controller.connect(100)
+                        cqgMenu.createChart()
+                    }
                 }
             }
         }
@@ -80,6 +111,7 @@ ApplicationWindow {
 
     ChartView {
         id: chartView
+        objectName: "chart_view"
         anchors.fill: parent
         antialiasing: true
     }

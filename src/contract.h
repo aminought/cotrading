@@ -9,7 +9,7 @@ enum class Symbol {
 
 class Contract {
 public:
-    Contract(int id, std::string&& symbol): id(id), symbol(std::move(symbol)) {}
+    Contract(int id, std::string symbol): id(id), symbol(symbol) {}
     int get_id() const;
     std::string get_symbol() const;
 

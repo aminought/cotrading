@@ -19,7 +19,7 @@ void CqgProvider::logon() {
     logon->set_client_version("c++-client");
 
     this->client->connect();
-    auto answer = this->client->send(std::move(client_msg.SerializeAsString()));
+    auto answer = this->client->send(client_msg.SerializeAsString());
 
     auto server_msg = WA::ServerMsg();
     server_msg.ParseFromString(answer);
@@ -40,7 +40,7 @@ std::unique_ptr<Contract> CqgProvider::resolve_symbol(Symbol symbol) {
     info_req->set_id(0);
     auto res_req = info_req->mutable_symbol_resolution_request();
     res_req->set_symbol("CL");
-    auto answer = this->client->send(std::move(client_msg.SerializeAsString()));
+    auto answer = this->client->send(client_msg.SerializeAsString());
 
     auto server_msg = WA::ServerMsg();
     server_msg.ParseFromString(answer);
@@ -48,7 +48,7 @@ std::unique_ptr<Contract> CqgProvider::resolve_symbol(Symbol symbol) {
     auto contract_metadata = server_msg.information_report().Get(0).symbol_resolution_report().contract_metadata();
     auto id = contract_metadata.contract_id();
     auto symbol_str = contract_metadata.contract_symbol();
-    return std::make_unique<Contract>(id, std::move(symbol_str));
+    return std::make_unique<Contract>(id, symbol_str);
 }
 
 std::vector<TimeBar> CqgProvider::get_historical_data(std::shared_ptr<Contract> contract, bpt::time_duration duration) {
@@ -59,7 +59,7 @@ std::vector<TimeBar> CqgProvider::get_historical_data(std::shared_ptr<Contract> 
     tb_req->set_request_type(WA::TimeBarRequest::GET);
     auto params = tb_req->mutable_time_bar_parameters();
     params->set_contract_id(static_cast<unsigned int>(contract->get_id()));
-    params->set_bar_unit(WA::TimeBarParameters::MIN);
+    params->set_bar_unit(WA::TimeBarParameters::HOUR);
     params->set_units_number(1);
     params->set_from_utc_time((bpt::second_clock::universal_time() - base_time - duration).total_milliseconds());
 
@@ -82,7 +82,7 @@ std::vector<TimeBar> CqgProvider::get_historical_data(std::shared_ptr<Contract> 
                 auto low = cqg_time_bar.low_price();
                 auto volume = static_cast<int>(cqg_time_bar.volume());
                 auto time_bar = TimeBar(time, open, close, high, low, volume);
-                time_bars.emplace_back(std::move(time_bar));
+                time_bars.push_back(time_bar);
             }
             complete = tb_report.is_report_complete();
         }

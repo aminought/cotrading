@@ -14,7 +14,9 @@ void MenuController::connect(ProviderType provider_type) {
     if(provider != nullptr) {
         std::shared_ptr<Contract> contract = provider->resolve_symbol(Symbol::CL);
         auto time_bars = provider->get_historical_data(contract, bpt::hours(24*30));
-        qDebug() << "Get time bars";
+        std::reverse(time_bars.begin(), time_bars.end());
+        qDebug() << "Time bars was gotten";
+        this->chart_controller->load_data(time_bars);
+        qDebug() << "Data was set";
     }
-    // TODO: Get quotes and show chart
 }
