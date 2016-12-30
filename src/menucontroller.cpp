@@ -12,8 +12,9 @@ void MenuController::connect(ProviderType provider_type) {
     this->provider_connection = factory.get_provider_connection(provider_type);
     this->provider = provider_connection->connect(this->config);
     if(provider != nullptr) {
-        auto contract = provider->resolve_symbol(Symbol::CL);
-        qDebug() << contract->get_id() << " " << QString(contract->get_symbol().data());
+        std::shared_ptr<Contract> contract = provider->resolve_symbol(Symbol::CL);
+        auto time_bars = provider->get_historical_data(contract, bpt::hours(24*30));
+        qDebug() << "Get time bars";
     }
     // TODO: Get quotes and show chart
 }

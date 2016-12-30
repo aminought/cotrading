@@ -16,6 +16,10 @@ std::string CqgClient::send(std::string message) {
     return this->client->send(message);
 }
 
+std::string CqgClient::get_next_answer(std::chrono::_V2::system_clock::duration timeout) {
+    return this->client->get_next_answer(timeout);
+}
+
 std::string CqgClient::get_user_name() const {
     return user_name;
 }

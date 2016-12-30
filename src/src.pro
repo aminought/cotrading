@@ -21,7 +21,8 @@ SOURCES += \
     providerconnectionfactory.cpp \
     contract.cpp \
     websocketclient.cpp \
-    ../libs/cqg_webapi/webapi_1.pb.cc
+    ../libs/cqg_webapi/webapi_1.pb.cc \
+    timebar.cpp
 
 HEADERS += \
     quotesprovider.h \
@@ -37,7 +38,8 @@ HEADERS += \
     providerconnectionfactory.h \
     contract.h \
     websocketclient.h \
-    ../libs/cqg_webapi/webapi_1.pb.h
+    ../libs/cqg_webapi/webapi_1.pb.h \
+    timebar.h
 
 LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto -lboost_date_time
 

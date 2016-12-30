@@ -21,6 +21,7 @@ public:
     virtual ~CqgClient() = default;
     virtual void connect();
     virtual std::string send(std::string);
+    virtual std::string get_next_answer(std::chrono::system_clock::duration timeout);
     virtual std::string get_user_name() const;
     virtual std::string get_password() const;
     virtual std::string get_client_id() const;
