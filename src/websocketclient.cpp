@@ -25,9 +25,7 @@ WebSocketClient::WebSocketClient() {
 }
 
 WebSocketClient::~WebSocketClient() {
-    this->client.stop();
-    this->client_thread.join();
-    this->log.close();
+    this->disconnect();
 }
 
 void WebSocketClient::connect(std::string uri) {
@@ -47,6 +45,12 @@ void WebSocketClient::connect(std::string uri) {
     });
     std::unique_lock<std::mutex> lock(this->m);
     this->cond.wait(lock);
+}
+
+void WebSocketClient::disconnect() {
+    this->client.stop();
+    this->client_thread.join();
+    this->log.close();
 }
 
 std::string WebSocketClient::send(std::string message) {

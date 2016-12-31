@@ -27,6 +27,7 @@ public:
     QList<int> get_y() const;
     QVariantList get_x() const;
     void load_data(std::vector<TimeBar> time_bars);
+    void clear_data();
 
 private:
     int y_min;

@@ -16,6 +16,7 @@ public:
     WebSocketClient();
     ~WebSocketClient();
     void connect(std::string uri);
+    void disconnect();
     std::string send(std::string message);
     std::string get_next_answer(std::chrono::system_clock::duration timeout);
 private:

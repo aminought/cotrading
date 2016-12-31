@@ -34,6 +34,10 @@ void CqgProvider::logon() {
     }
 }
 
+void CqgProvider::logout() {
+    this->client->disconnect();
+}
+
 std::unique_ptr<Contract> CqgProvider::resolve_symbol(Symbol symbol) {
     auto client_msg = WA::ClientMsg();
     auto info_req = client_msg.add_information_request();

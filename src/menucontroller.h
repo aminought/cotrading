@@ -19,6 +19,7 @@ public:
         chart_controller(chart_controller) {}
 public slots:
     void connect(ProviderType provider = ProviderType::CQG);
+    void disconnect();
 private:
     std::shared_ptr<Config> config;
     std::shared_ptr<ProviderConnection> provider_connection;

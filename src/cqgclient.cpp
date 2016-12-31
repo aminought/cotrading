@@ -7,6 +7,10 @@ void CqgClient::connect() {
     this->client->connect(uri);
 }
 
+void CqgClient::disconnect() {
+    this->client->disconnect();
+}
+
 enum Opcode {
     TEXT = 129,
     BINARY = 130

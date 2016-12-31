@@ -20,3 +20,9 @@ void MenuController::connect(ProviderType provider_type) {
         qDebug() << "Data was set";
     }
 }
+
+void MenuController::disconnect() {
+    this->provider_connection = nullptr;
+    this->provider = nullptr;
+    this->chart_controller->clear_data();
+}

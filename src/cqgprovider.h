@@ -10,8 +10,9 @@ class CqgProvider: public QuotesProvider {
 public:
     CqgProvider(std::shared_ptr<CqgClient> client): client(client) {}
     void logon() override;
+    void logout() override;
     std::unique_ptr<Contract> resolve_symbol(Symbol symbol) override;
-    std::vector<TimeBar> get_historical_data(std::shared_ptr<Contract> contract, bpt::time_duration duration);
+    std::vector<TimeBar> get_historical_data(std::shared_ptr<Contract> contract, bpt::time_duration duration) override;
 private:
     std::shared_ptr<CqgClient> client;
 };

@@ -20,6 +20,7 @@ public:
         account_id(account_id) {}
     virtual ~CqgClient() = default;
     virtual void connect();
+    virtual void disconnect();
     virtual std::string send(std::string);
     virtual std::string get_next_answer(std::chrono::system_clock::duration timeout);
     virtual std::string get_user_name() const;

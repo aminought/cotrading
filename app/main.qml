@@ -2,6 +2,7 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.1
 import QtCharts 2.0
 
 ApplicationWindow {
@@ -72,15 +73,17 @@ ApplicationWindow {
                 title: qsTr("CQG")
 
                 function createValueAxis(min, max) {
-                    return Qt.createQmlObject(
-                                "import QtQuick 2.5; import QtCharts 2.0; ValueAxis { min: "
+                    chartView.y_axis = Qt.createQmlObject(
+                                "import QtQuick 2.5; import QtCharts 2.0; ValueAxis {id: x_axis; min: "
                                 + min + "; max: " + max + " }", chartView)
+                    return chartView.y_axis
                 }
 
                 function createDateTimeAxis(format) {
-                    var create_str = "import QtQuick 2.5; import QtCharts 2.0; DateTimeAxis { format: '" + format
+                    var create_str = "import QtQuick 2.5; import QtCharts 2.0; DateTimeAxis {id: y_axis; format: '" + format
                             + "'; min: _chart_controller.x_min; max: _chart_controller.x_max}"
-                    return Qt.createQmlObject(create_str, chartView)
+                    chartView.x_axis = Qt.createQmlObject(create_str, chartView)
+                    return chartView.x_axis
                 }
 
                 function createChart() {
@@ -92,17 +95,31 @@ ApplicationWindow {
                                     _chart_controller.y_max))
                     var prices = _chart_controller.y
                     var times = _chart_controller.x
-                    for(var i=0; i<prices.length; ++i) {
+                    for (var i = 0; i < prices.length; ++i) {
                         line_series.append(times[i], prices[i])
                     }
-
                 }
 
                 MenuItem {
+                    property bool connected: false
+                    id: connectMenuItem
                     text: qsTr("Connect")
                     onTriggered: {
-                        _menu_controller.connect(100)
-                        cqgMenu.createChart()
+                        if (!connected) {
+                            _menu_controller.connect(100)
+                            statusLabel.text = qsTr("Connection established")
+                            cqgMenu.createChart()
+                            connected = true
+                            text = qsTr("Disconnect")
+                        } else {
+                            _menu_controller.disconnect()
+                            connected = false
+                            text = qsTr("Connect")
+                            chartView.removeAllSeries()
+                            chartView.x_axis.destroy()
+                            chartView.y_axis.destroy()
+                            statusLabel.text = qsTr("Disconnected")
+                        }
                     }
                 }
             }
@@ -114,5 +131,16 @@ ApplicationWindow {
         objectName: "chart_view"
         anchors.fill: parent
         antialiasing: true
+        property var x_axis
+        property var y_axis
+    }
+
+    statusBar: StatusBar {
+        RowLayout {
+            Label {
+                id: statusLabel
+                text: "Disconnected"
+            }
+        }
     }
 }

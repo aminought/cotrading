@@ -55,3 +55,8 @@ void ChartController::load_data(std::vector<TimeBar> time_bars) {
     this->x_min = ptime_to_qdatetime(x_min);
     this->x_max = ptime_to_qdatetime(x_max);
 }
+
+void ChartController::clear_data() {
+    this->x.clear();
+    this->y.clear();
+}

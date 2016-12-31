@@ -10,6 +10,7 @@ class QuotesProvider {
 public:
     virtual ~QuotesProvider();
     virtual void logon() = 0;
+    virtual void logout() = 0;
     virtual std::unique_ptr<Contract> resolve_symbol(Symbol symbol) = 0;
     virtual std::vector<TimeBar> get_historical_data(std::shared_ptr<Contract> contract, bpt::time_duration duration) = 0;
 };
