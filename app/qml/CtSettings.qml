@@ -6,33 +6,58 @@ import QtQuick.Layouts 1.1
 Dialog {
     id: ctSettings
     modality: Qt.WindowModal
+    visible: true
     title: qsTr("Settings")
     standardButtons: StandardButton.Ok | StandardButton.Apply | StandardButton.Cancel
-    onAccepted: _settings_controller.saveConfig(userName.text, password.text,
+    onAccepted: _settings_controller.save_config(userName.text, password.text,
                                                 clientId.text, accountId.text)
 
-    Column {
+    GridLayout {
+        columns: 2
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 3
+
+        Label {
+            text: "User name"
+            height: userName.height
+        }
 
         TextField {
             id: userName
-            placeholderText: qsTr("Username")
+        }
+
+
+        Label {
+            text: "Password"
+            height: password.height
         }
 
         TextField {
             id: password
-            placeholderText: qsTr("Password")
+        }
+
+        Label {
+            text: "Client Id"
+            height: clientId.height
         }
 
         TextField {
             id: clientId
-            placeholderText: qsTr("Client id")
+        }
+
+        Label {
+            text: "Account id"
+            height: accountId.height
         }
 
         TextField {
             id: accountId
-            placeholderText: qsTr("Account id")
         }
+    }
+
+    Component.onCompleted: {
+        userName.text = _settings_controller.load_user_name()
+        password.text = _settings_controller.load_password()
+        clientId.text = _settings_controller.load_client_id()
+        accountId.text = _settings_controller.load_account_id()
     }
 }
