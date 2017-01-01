@@ -23,7 +23,8 @@ SOURCES += \
     websocketclient.cpp \
     ../libs/cqg_webapi/webapi_1.pb.cc \
     timebar.cpp \
-    chartcontroller.cpp
+    chartcontroller.cpp \
+    horizontalline.cpp
 
 HEADERS += \
     quotesprovider.h \
@@ -41,7 +42,8 @@ HEADERS += \
     websocketclient.h \
     ../libs/cqg_webapi/webapi_1.pb.h \
     timebar.h \
-    chartcontroller.h
+    chartcontroller.h \
+    horizontalline.h
 
 LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto -lboost_date_time
 

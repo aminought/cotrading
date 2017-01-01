@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     std::shared_ptr<Config> config = std::make_shared<Config>();
     config->load();

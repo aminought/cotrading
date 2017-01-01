@@ -7,6 +7,7 @@
 #include <boost/date_time/posix_time/ptime.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include "timebar.h"
+#include "horizontalline.h"
 
 namespace bpt = boost::posix_time;
 
@@ -18,6 +19,7 @@ class ChartController: public QObject {
     Q_PROPERTY(int y_max READ get_y_max)
     Q_PROPERTY(QList<int> y READ get_y)
     Q_PROPERTY(QVariantList x READ get_x)
+
 public:
     explicit ChartController(QObject *parent = 0);
     int get_y_min() const;
@@ -29,6 +31,10 @@ public:
     void load_data(std::vector<TimeBar> time_bars);
     void clear_data();
 
+public slots:
+    void addHorizontalLine(int y);
+    void removeHorizontalLines();
+
 private:
     int y_min;
     int y_max;
@@ -36,6 +42,7 @@ private:
     QDateTime x_max;
     QList<int> y;
     QVariantList x;
+    std::vector<HorizontalLine> lines;
 };
 
 #endif // CHARTCONTROLLER_H

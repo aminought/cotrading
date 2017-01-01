@@ -60,3 +60,11 @@ void ChartController::clear_data() {
     this->x.clear();
     this->y.clear();
 }
+
+void ChartController::addHorizontalLine(int y) {
+    this->lines.emplace_back(y);
+}
+
+void ChartController::removeHorizontalLines() {
+    this->lines.clear();
+}
