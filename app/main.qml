@@ -126,6 +126,32 @@ ApplicationWindow {
         }
     }
 
+    toolBar: ToolBar {
+        height: toolLayout.height + 5
+        RowLayout {
+            id: toolLayout
+            ToolButton {
+                text: qsTr("Draw line")
+                checkable: true
+                onClicked: {
+                    if (!chartCanvas.drawState) {
+                        statusLabel.text = qsTr("Line drawing")
+                    } else {
+                        statusLabel.text = qsTr("Connection established")
+                    }
+                    chartCanvas.drawState = !chartCanvas.drawState
+                }
+            }
+            ToolButton {
+                text: qsTr("Clear")
+                onClicked: {
+                    chartCanvas.ctx.reset()
+                    chartCanvas.requestPaint()
+                }
+            }
+        }
+    }
+
     ChartView {
         id: chartView
         objectName: "chart_view"
@@ -133,6 +159,35 @@ ApplicationWindow {
         antialiasing: true
         property var x_axis
         property var y_axis
+
+        Canvas {
+            id: chartCanvas
+            anchors.fill: parent
+            property var ctx: getContext("2d")
+            property bool drawState: false
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (chartCanvas.drawState) {
+                        chartCanvas.paintLine(mouse.y)
+                    }
+                }
+            }
+
+            function paintLine(y) {
+                var ctx = chartCanvas.ctx
+                ctx.lineWidth = 1
+                ctx.strokeStyle = "#ff0000"
+                ctx.beginPath()
+                ctx.moveTo(0, y)
+                ctx.lineTo(parent.width, y)
+                ctx.closePath()
+                ctx.stroke()
+                chartCanvas.requestPaint()
+            }
+
+        }
     }
 
     statusBar: StatusBar {
