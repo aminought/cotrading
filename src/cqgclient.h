@@ -38,6 +38,7 @@ private:
     std::shared_ptr<CqgSession> session;
 
     std::unique_ptr<WebSocketClient> client;
+    bool connected = false;
 };
 
 #endif // CQGCLIENT_H

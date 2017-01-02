@@ -27,6 +27,7 @@ private:
     std::thread client_thread;
     std::ofstream log;
     wspp::connection_hdl handler;
+    bool connected = false;
 };
 
 #endif // WEBSOCKETCLIENT_H

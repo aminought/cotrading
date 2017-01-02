@@ -10,7 +10,9 @@ namespace bdt = boost::date_time;
 namespace WA = WebAPI_1;
 
 CqgProvider::~CqgProvider() {
-    this->logout();
+    if(this->connected) {
+        this->logout();
+    }
 }
 
 void CqgProvider::logon() {
@@ -36,10 +38,12 @@ void CqgProvider::logon() {
 
         this->client->create_session(token, base_time);
     }
+    this->connected = true;
 }
 
 void CqgProvider::logout() {
     this->client->disconnect();
+    this->connected = false;
 }
 
 std::unique_ptr<Contract> CqgProvider::resolve_symbol(Symbol) {

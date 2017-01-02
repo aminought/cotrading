@@ -4,13 +4,6 @@
 #include <fstream>
 
 WebSocketClient::WebSocketClient() {
-    this->log.open("output.log");
-    this->client.get_alog().set_ostream(&this->log);
-    this->client.get_elog().set_ostream(&this->log);
-    this->client.set_access_channels(websocketpp::log::alevel::all);
-    this->client.set_access_channels(websocketpp::log::alevel::all);
-    this->client.set_error_channels(websocketpp::log::elevel::all);
-    this->client.init_asio();
     this->client.set_tls_init_handler([] (auto) {
         return wspp::lib::make_shared<boost::asio::ssl::context>(boost::asio::ssl::context::tlsv1);
     });
@@ -25,10 +18,13 @@ WebSocketClient::WebSocketClient() {
 }
 
 WebSocketClient::~WebSocketClient() {
-    this->disconnect();
+    if(this->connected) {
+        this->disconnect();
+    }
 }
 
 void WebSocketClient::connect(std::string uri) {
+    this->client.init_asio();
     wspp::lib::error_code ec;
     auto conn = this->client.get_connection(uri, ec);
     if(ec) {
@@ -45,12 +41,14 @@ void WebSocketClient::connect(std::string uri) {
     });
     std::unique_lock<std::mutex> lock(this->m);
     this->cond.wait(lock);
+    this->connected = true;
 }
 
 void WebSocketClient::disconnect() {
     this->client.stop();
     this->client_thread.join();
     this->log.close();
+    this->connected = false;
 }
 
 std::string WebSocketClient::send(std::string message) {

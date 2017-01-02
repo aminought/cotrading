@@ -16,6 +16,7 @@ public:
     std::vector<TimeBar> get_historical_data(std::shared_ptr<Contract> contract, bpt::time_duration duration) override;
 private:
     std::shared_ptr<CqgClient> client;
+    bool connected = false;
 };
 
 #endif // CQGPROVIDER_H
