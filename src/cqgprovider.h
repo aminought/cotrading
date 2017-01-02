@@ -9,6 +9,7 @@
 class CqgProvider: public QuotesProvider {
 public:
     CqgProvider(std::shared_ptr<CqgClient> client): client(client) {}
+    ~CqgProvider();
     void logon() override;
     void logout() override;
     std::unique_ptr<Contract> resolve_symbol(Symbol symbol) override;

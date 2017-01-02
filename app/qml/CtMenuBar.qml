@@ -91,4 +91,24 @@ MenuBar {
             }
         }
     }
+
+    Menu {
+        title: qsTr("Cooperation")
+
+        MenuItem {
+            text: qsTr("Start server")
+
+            onTriggered: {
+                _menu_controller.start_coop_server()
+            }
+        }
+
+        MenuItem {
+            text: qsTr("Connect to server")
+
+            onTriggered: {
+                _menu_controller.connect_to_coop_server()
+            }
+        }
+    }
 }

@@ -18,7 +18,7 @@ public:
         password(password),
         client_id(client_id),
         account_id(account_id) {}
-    virtual ~CqgClient() = default;
+    virtual ~CqgClient();
     virtual void connect();
     virtual void disconnect();
     virtual std::string send(std::string);

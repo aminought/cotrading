@@ -1,7 +1,7 @@
 #include "chartcontroller.h"
 #include <boost/date_time/posix_time/conversion.hpp>
 
-ChartController::ChartController(QObject *parent) {
+ChartController::ChartController(QObject*) {
 
 }
 
@@ -67,4 +67,12 @@ void ChartController::addHorizontalLine(int y) {
 
 void ChartController::removeHorizontalLines() {
     this->lines.clear();
+}
+
+std::vector<HorizontalLine> ChartController::get_lines() const {
+    return lines;
+}
+
+void ChartController::set_chart_canvas(QObject *chart_canvas) {
+    this->chart_canvas = chart_canvas;
 }

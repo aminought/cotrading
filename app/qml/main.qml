@@ -6,6 +6,7 @@ import QtCharts 2.0
 
 ApplicationWindow {
     id: window
+    objectName: "window"
     visible: true
     width: 640
     height: 480
@@ -20,6 +21,7 @@ ApplicationWindow {
 
     CtChart {
         id: ctChart
+        objectName: "ctChart"
         anchors.fill: parent
     }
 

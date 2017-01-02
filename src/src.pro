@@ -24,7 +24,11 @@ SOURCES += \
     ../libs/cqg_webapi/webapi_1.pb.cc \
     timebar.cpp \
     chartcontroller.cpp \
-    horizontalline.cpp
+    horizontalline.cpp \
+    coopserver.cpp \
+    coopclient.cpp \
+    coopmessage.cpp \
+    coopconnection.cpp
 
 HEADERS += \
     quotesprovider.h \
@@ -43,9 +47,15 @@ HEADERS += \
     ../libs/cqg_webapi/webapi_1.pb.h \
     timebar.h \
     chartcontroller.h \
-    horizontalline.h
+    horizontalline.h \
+    coopserver.h \
+    ../libs/json/src/json.hpp \
+    coopclient.h \
+    coopmessage.h \
+    coopconnection.h
 
 LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto -lboost_date_time
 
 INCLUDEPATH += ../libs/websocketpp
 INCLUDEPATH += ../libs/cqg_webapi
+INCLUDEPATH += ../libs/json/src

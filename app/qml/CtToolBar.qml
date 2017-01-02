@@ -27,9 +27,7 @@ ToolBar {
         ToolButton {
             text: qsTr("Clear")
             onClicked: {
-                ctChartCanvas.ctx.reset()
-                ctChartCanvas.requestPaint()
-                _chart_controller.removeHorizontalLines()
+                ctChartCanvas.removeLines()
             }
         }
     }

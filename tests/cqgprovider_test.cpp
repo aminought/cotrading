@@ -20,9 +20,9 @@ public:
 using ::testing::Return;
 using ::testing::_;
 
-// TODO: Fix crash after all tests
 TEST(LOG0N, CQGPROVIDER_TEST) {
-    auto client = std::make_shared<MockClient>();
+    // NiceMock disables annoying warnings
+    auto client = std::make_shared<::testing::NiceMock<MockClient>>();
 
     QFile file(":/logon_answer.txt");
     std::string answer;

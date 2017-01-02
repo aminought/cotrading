@@ -10,10 +10,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp
 
-LIBS += -L../src -lcotrading
+LIBS += -L../src -lcotrading -lboost_system -lssl -lcrypto
 
 INCLUDEPATH += ../src
 INCLUDEPATH += ../libs/websocketpp
+INCLUDEPATH += ../libs/json/src
 INCLUDEPATH += ../libs
 
 RESOURCES += qml.qrc

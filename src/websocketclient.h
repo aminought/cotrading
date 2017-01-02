@@ -8,7 +8,7 @@
 
 namespace wspp = websocketpp;
 namespace blf = boost::lockfree;
-using Client = wspp::client<wspp::config::asio_tls_client>;
+using TlsClient = wspp::client<wspp::config::asio_tls_client>;
 using namespace std::chrono_literals;
 
 class WebSocketClient {
@@ -20,7 +20,7 @@ public:
     std::string send(std::string message);
     std::string get_next_answer(std::chrono::system_clock::duration timeout);
 private:
-    Client client;
+    TlsClient client;
     std::condition_variable cond;
     std::mutex m;
     blf::spsc_queue<std::string, blf::capacity<10000>> answer_queue;

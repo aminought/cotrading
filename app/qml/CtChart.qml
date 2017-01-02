@@ -9,6 +9,14 @@ ChartView {
     property var x_axis
     property var y_axis
 
+    function paintLine(y) {
+        ctChartCanvas.paintLine(y)
+    }
+
+    function removeLines() {
+        ctChartCanvas.removeLines()
+    }
+
     Canvas {
         id: ctChartCanvas
         anchors.fill: parent
@@ -22,8 +30,15 @@ ChartView {
                     var y = mouse.y
                     ctChartCanvas.paintLine(y)
                     _chart_controller.addHorizontalLine(y)
+                    _menu_controller.send_coop_data()
                 }
             }
+        }
+
+        function removeLines() {
+            ctChartCanvas.ctx.reset()
+            ctChartCanvas.requestPaint()
+            _chart_controller.removeHorizontalLines()
         }
 
         function paintLine(y) {

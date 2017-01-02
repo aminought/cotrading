@@ -2,6 +2,10 @@
 
 std::string uri = "wss://demoapi.cqg.com:443";
 
+CqgClient::~CqgClient() {
+    this->disconnect();
+}
+
 void CqgClient::connect() {
     this->client = std::make_unique<WebSocketClient>();
     this->client->connect(uri);

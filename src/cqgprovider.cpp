@@ -9,6 +9,10 @@ namespace bpt = boost::posix_time;
 namespace bdt = boost::date_time;
 namespace WA = WebAPI_1;
 
+CqgProvider::~CqgProvider() {
+    this->logout();
+}
+
 void CqgProvider::logon() {
     auto client_msg = WA::ClientMsg();
     auto logon = client_msg.mutable_logon();
@@ -38,7 +42,7 @@ void CqgProvider::logout() {
     this->client->disconnect();
 }
 
-std::unique_ptr<Contract> CqgProvider::resolve_symbol(Symbol symbol) {
+std::unique_ptr<Contract> CqgProvider::resolve_symbol(Symbol) {
     auto client_msg = WA::ClientMsg();
     auto info_req = client_msg.add_information_request();
     info_req->set_id(0);

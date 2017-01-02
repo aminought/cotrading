@@ -14,7 +14,7 @@ WebSocketClient::WebSocketClient() {
     this->client.set_tls_init_handler([] (auto) {
         return wspp::lib::make_shared<boost::asio::ssl::context>(boost::asio::ssl::context::tlsv1);
     });
-    this->client.set_message_handler([this] (auto, Client::message_ptr msg) {
+    this->client.set_message_handler([this] (auto, TlsClient::message_ptr msg) {
         std::string answer = msg->get_payload();
         this->answer_queue.push(answer);
         cond.notify_one();

@@ -1,10 +1,11 @@
+#include <QtDebug>
+#include <QString>
 #include "menucontroller.h"
 #include "cqgprovider.h"
 #include "cqgclient.h"
-#include <QtDebug>
-#include <QString>
 #include "providerconnectionfactory.h"
 #include "contract.h"
+#include "coopmessage.h"
 
 
 void MenuController::connect(ProviderType provider_type) {
@@ -25,4 +26,22 @@ void MenuController::disconnect() {
     this->provider_connection = nullptr;
     this->provider = nullptr;
     this->chart_controller->clear_data();
+}
+
+void MenuController::start_coop_server() {
+    this->coop_connection->start_coop_server();
+}
+
+void MenuController::connect_to_coop_server() {
+    this->coop_connection->connect_to_coop_server();
+}
+
+void MenuController::send_coop_data() {
+    auto lines = chart_controller->get_lines();
+    CoopMessage message;
+    for(auto line: lines) {
+        qDebug() << line.get_y();
+        message.add_line(std::make_shared<HorizontalLine>(line));
+    }
+    this->coop_connection->send_coop_data(message);
 }
