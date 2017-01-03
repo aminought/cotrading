@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
-#include "coopmessage.h"
-#include "horizontalline.h"
+#include "coop/coopmessage.h"
+
+using ct::coop::CoopMessage;
+using ct::chart::HorizontalLine;
 
 TEST(TO_JSON, COOPSERVERMESSAGE) {
     CoopMessage message;

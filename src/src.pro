@@ -8,51 +8,51 @@ CONFIG += qt
 TARGET = cotrading
 
 SOURCES += \
-    quotesprovider.cpp \
-    cqgprovider.cpp \
-    cqgclient.cpp \
-    config.cpp \
-    menucontroller.cpp \
-    settingscontroller.cpp \
-    cqgsession.cpp \
-    providersession.cpp \
-    providerconnection.cpp \
-    cqgconnection.cpp \
-    providerconnectionfactory.cpp \
-    contract.cpp \
-    websocketclient.cpp \
-    ../libs/cqg_webapi/webapi_1.pb.cc \
-    timebar.cpp \
-    chartcontroller.cpp \
-    horizontalline.cpp \
-    coopserver.cpp \
-    coopclient.cpp \
-    coopmessage.cpp \
-    coopconnection.cpp
+    chart/horizontalline.cpp \
+    coop/coopclient.cpp \
+    coop/coopconnection.cpp \
+    coop/coopmessage.cpp \
+    coop/coopserver.cpp \
+    core/chartcontroller.cpp \
+    core/config.cpp \
+    core/menucontroller.cpp \
+    core/settingscontroller.cpp \
+    trading/model/contract.cpp \
+    trading/model/timebar.cpp \
+    trading/network/websocketclient.cpp \
+    trading/provider/cqg/cqgclient.cpp \
+    trading/provider/cqg/cqgconnection.cpp \
+    trading/provider/cqg/cqgprovider.cpp \
+    trading/provider/cqg/cqgsession.cpp \
+    trading/provider/providerconnection.cpp \
+    trading/provider/providerconnectionfactory.cpp \
+    trading/provider/providersession.cpp \
+    trading/provider/quotesprovider.cpp \
+    ../libs/cqg_webapi/webapi_1.pb.cc
 
 HEADERS += \
-    quotesprovider.h \
-    cqgprovider.h \
-    cqgclient.h \
-    config.h \
-    menucontroller.h \
-    settingscontroller.h \
-    cqgsession.h \
-    providersession.h \
-    providerconnection.h \
-    cqgconnection.h \
-    providerconnectionfactory.h \
-    contract.h \
-    websocketclient.h \
+    chart/horizontalline.h \
+    coop/coopclient.h \
+    coop/coopconnection.h \
+    coop/coopmessage.h \
+    coop/coopserver.h \
+    core/chartcontroller.h \
+    core/config.h \
+    core/menucontroller.h \
+    core/settingscontroller.h \
+    trading/model/contract.h \
+    trading/model/timebar.h \
+    trading/network/websocketclient.h \
+    trading/provider/cqg/cqgclient.h \
+    trading/provider/cqg/cqgconnection.h \
+    trading/provider/cqg/cqgprovider.h \
+    trading/provider/cqg/cqgsession.h \
+    trading/provider/providerconnection.h \
+    trading/provider/providerconnectionfactory.h \
+    trading/provider/providersession.h \
+    trading/provider/quotesprovider.h \
     ../libs/cqg_webapi/webapi_1.pb.h \
-    timebar.h \
-    chartcontroller.h \
-    horizontalline.h \
-    coopserver.h \
-    ../libs/json/src/json.hpp \
-    coopclient.h \
-    coopmessage.h \
-    coopconnection.h
+    ../libs/json/src/json.hpp
 
 LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto -lboost_date_time
 

@@ -1,9 +1,12 @@
 #include <gtest/gtest.h>
-#include "chartcontroller.h"
 #include <QDateTime>
 #include <QDate>
 #include <QTime>
 #include <QTimeZone>
+#include "core/chartcontroller.h"
+
+using ct::trading::model::TimeBar;
+using ct::core::ChartController;
 
 std::vector<TimeBar> create_time_bars() {
     std::vector<TimeBar> time_bars;

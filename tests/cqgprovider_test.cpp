@@ -1,11 +1,14 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "cqgprovider.h"
-#include "cqgclient.h"
 #include <QFile>
 #include <QString>
 #include <boost/date_time/posix_time/ptime.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include "trading/provider/cqg/cqgclient.h"
+#include "trading/provider/cqg/cqgprovider.h"
+
+using ct::trading::provider::cqg::CqgClient;
+using ct::trading::provider::cqg::CqgProvider;
 
 class MockClient: public CqgClient {
 public:

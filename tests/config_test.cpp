@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
 #include <QTemporaryFile>
-#include "config.h"
+#include "core/config.h"
 
-using namespace std;
+using ct::core::Config;
+using ct::core::Value;
 
 TEST(LOAD, CONFIG_TEST) {
     QTemporaryFile file;
