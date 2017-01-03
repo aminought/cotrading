@@ -4,18 +4,18 @@
 #include <QDebug>
 
 
-std::unique_ptr<QuotesProvider> CqgConnection::connect(std::shared_ptr<Config> config) {
-    auto conn_conf = config->get_connection_config();
+std::unique_ptr<QuotesProvider> CqgConnection::connect(const Config& config) {
+    auto conn_conf = config.get_connection_config();
 
     auto validate_config = [&conn_conf] () {
-        return !conn_conf->empty();
+        return !conn_conf.empty();
     };
 
     if(validate_config()) {
-        auto user_name = conn_conf->at(Value::CONNECTION_CQG_USER_NAME);
-        auto password = conn_conf->at(Value::CONNECTION_CQG_PASSWORD);
-        auto client_id = conn_conf->at(Value::CONNECTION_CQG_CLIENT_ID);
-        auto account_id = conn_conf->at(Value::CONNECTION_CQG_ACCOUNT_ID);
+        auto user_name = conn_conf.at(Value::CONNECTION_CQG_USER_NAME);
+        auto password = conn_conf.at(Value::CONNECTION_CQG_PASSWORD);
+        auto client_id = conn_conf.at(Value::CONNECTION_CQG_CLIENT_ID);
+        auto account_id = conn_conf.at(Value::CONNECTION_CQG_ACCOUNT_ID);
 
         auto validate_credentials = [&user_name, &password, &client_id, &account_id] () {
             try {

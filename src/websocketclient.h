@@ -15,17 +15,18 @@ class WebSocketClient {
 public:
     WebSocketClient();
     ~WebSocketClient();
-    void connect(std::string uri);
+    void connect(const std::string& uri);
     void disconnect();
-    std::string send(std::string message);
+    std::string send(const std::string& message);
     std::string get_next_answer(std::chrono::system_clock::duration timeout);
 private:
     TlsClient client;
-    std::condition_variable cond;
-    std::mutex m;
     blf::spsc_queue<std::string, blf::capacity<10000>> answer_queue;
+
     std::thread client_thread;
-    std::ofstream log;
+    std::mutex m;
+    std::condition_variable cond;
+
     wspp::connection_hdl handler;
     bool connected = false;
 };

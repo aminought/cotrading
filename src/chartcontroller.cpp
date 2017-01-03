@@ -1,9 +1,6 @@
 #include "chartcontroller.h"
 #include <boost/date_time/posix_time/conversion.hpp>
-
-ChartController::ChartController(QObject*) {
-
-}
+#include <json.hpp>
 
 int ChartController::get_y_min() const {
     return y_min;
@@ -29,7 +26,7 @@ QVariantList ChartController::get_x() const {
     return x;
 }
 
-void ChartController::load_data(std::vector<TimeBar> time_bars) {
+void ChartController::load_data(std::vector<TimeBar>& time_bars) {
     auto y_min = time_bars[0].get_close();
     auto y_max = time_bars[0].get_close();
     auto x_min = time_bars[0].get_time();
@@ -73,6 +70,12 @@ std::vector<HorizontalLine> ChartController::get_lines() const {
     return lines;
 }
 
-void ChartController::set_chart_canvas(QObject *chart_canvas) {
-    this->chart_canvas = chart_canvas;
+void ChartController::update_chart_based_on_message(const std::string& message) {
+    auto json_message = nlohmann::json::parse(message);
+
+    QMetaObject::invokeMethod(this->chart, "removeLines");
+
+    for(auto object: json_message) {
+        QMetaObject::invokeMethod(this->chart, "paintLine", Q_ARG(QVariant, object["line"]["y"].get<int>()));
+    }
 }

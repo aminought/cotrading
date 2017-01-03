@@ -15,7 +15,7 @@ std::vector<TimeBar> create_time_bars() {
 }
 
 TEST(LOAD_DATA, CHARTCONTROLLER_TEST) {
-    ChartController contr;
+    ChartController contr(nullptr, nullptr);
     std::vector<TimeBar> time_bars = create_time_bars();
 
     contr.load_data(time_bars);

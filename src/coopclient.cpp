@@ -4,9 +4,8 @@
 #include <QDebug>
 #include <QMetaObject>
 #include <QList>
-#include <json.hpp>
 
-CoopClient::CoopClient(QObject* chart): chart(chart) {
+CoopClient::CoopClient() {
     this->client.set_open_handler([this] (auto) {
         this->notify_cond.notify_one();
     });
@@ -14,13 +13,7 @@ CoopClient::CoopClient(QObject* chart): chart(chart) {
     this->client.set_message_handler([this] (auto, Client::message_ptr msg) {
         auto message = msg->get_payload();
         std::cout << message << std::endl;
-        auto json_message = nlohmann::json::parse(message);
-
-        QMetaObject::invokeMethod(this->chart, "removeLines");
-
-        for(auto object: json_message) {
-            QMetaObject::invokeMethod(this->chart, "paintLine", Q_ARG(QVariant, object["line"]["y"].get<int>()));
-        }
+        this->coop_connection->handle_client_message(message);
     });
 }
 
@@ -54,4 +47,8 @@ void CoopClient::disconnect() {
     this->client.stop();
     this->client_thread.join();
     connected = false;
+}
+
+void CoopClient::set_coop_connection(std::shared_ptr<CoopConnection> coop_connection) {
+    this->coop_connection = coop_connection;
 }

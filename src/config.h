@@ -16,16 +16,14 @@ class Config {
 public:
     Config();
     void load(const std::string& path = Config::path);
-    void save(const std::string& path = Config::path);
-    void set(std::map<Value, std::string> values);
-    void set(Value category, std::string value);
-    std::unique_ptr<std::map<Value, std::string> > get_connection_config();
+    void save(const std::string& path = Config::path) const;
+    void set(const std::map<Value, std::string>& values);
+    void set(Value category, const std::string& value);
+    std::map<Value, std::string> get_connection_config() const;
 private:
     static std::string path;
-    static std::map<Value, std::string>  value_to_key;
+    static std::map<Value, std::string> value_to_key;
     std::map<Value, std::string> config;
-
-    void put_value(Value value, boost::property_tree::ptree pt);
 };
 
 #endif // CONFIG_H

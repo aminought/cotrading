@@ -22,14 +22,15 @@ public:
     void add_server_message(const CoopMessage& message);
 private:
     Server server;
-    std::thread server_thread;
     std::vector<wspp::connection_hdl> handles;
+    blf::spsc_queue<std::string, blf::capacity<10>> server_message_queue;
+
+    std::thread server_thread;
     std::condition_variable notify_cond;
     std::mutex notify_mutex;
-    blf::spsc_queue<std::string, blf::capacity<10>> server_message_queue;
     std::thread message_sender_thread;
+
     std::atomic_bool need_to_send;
-    std::ofstream log;
     bool started = false;
 };
 

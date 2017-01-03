@@ -8,7 +8,7 @@
 class ProviderConnection {
 public:
     virtual ~ProviderConnection() = default;
-    virtual std::unique_ptr<QuotesProvider> connect(std::shared_ptr<Config> config) = 0;
+    virtual std::unique_ptr<QuotesProvider> connect(const Config& config) = 0;
 };
 
 #endif // PROVIDERCONNECTION_H

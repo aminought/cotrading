@@ -16,17 +16,21 @@ void SettingsController::save_config(QString user_name, QString password, QStrin
 }
 
 QString SettingsController::load_user_name() {
-    return config->get_connection_config()->at(Value::CONNECTION_CQG_USER_NAME).data();
+    return get(Value::CONNECTION_CQG_USER_NAME);
 }
 
 QString SettingsController::load_password() {
-    return config->get_connection_config()->at(Value::CONNECTION_CQG_PASSWORD).data();
+    return get(Value::CONNECTION_CQG_PASSWORD);
 }
 
 QString SettingsController::load_client_id() {
-    return config->get_connection_config()->at(Value::CONNECTION_CQG_CLIENT_ID).data();
+    return get(Value::CONNECTION_CQG_CLIENT_ID);
 }
 
 QString SettingsController::load_account_id() {
-    return config->get_connection_config()->at(Value::CONNECTION_CQG_ACCOUNT_ID).data();
+    return get(Value::CONNECTION_CQG_ACCOUNT_ID);
+}
+
+QString SettingsController::get(Value value) {
+    return config->get_connection_config().at(value).data();
 }

@@ -23,7 +23,7 @@ WebSocketClient::~WebSocketClient() {
     }
 }
 
-void WebSocketClient::connect(std::string uri) {
+void WebSocketClient::connect(const std::string& uri) {
     this->client.init_asio();
     wspp::lib::error_code ec;
     auto conn = this->client.get_connection(uri, ec);
@@ -47,11 +47,10 @@ void WebSocketClient::connect(std::string uri) {
 void WebSocketClient::disconnect() {
     this->client.stop();
     this->client_thread.join();
-    this->log.close();
     this->connected = false;
 }
 
-std::string WebSocketClient::send(std::string message) {
+std::string WebSocketClient::send(const std::string& message) {
     this->client.send(this->handler, message, wspp::frame::opcode::BINARY);
     std::unique_lock<std::mutex> lock(this->m);
     this->cond.wait(lock);

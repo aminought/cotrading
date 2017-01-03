@@ -21,7 +21,7 @@ public:
     virtual ~CqgClient();
     virtual void connect();
     virtual void disconnect();
-    virtual std::string send(std::string);
+    virtual std::string send(const std::string&& message);
     virtual std::string get_next_answer(std::chrono::system_clock::duration timeout);
     virtual std::string get_user_name() const;
     virtual std::string get_password() const;
@@ -29,7 +29,6 @@ public:
     virtual int get_account_id() const;
     std::weak_ptr<CqgSession> get_session() const;
     void create_session(std::string token, bpt::ptime base_time);
-
 private:
     std::string user_name;
     std::string password;

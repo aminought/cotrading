@@ -14,10 +14,6 @@ Config::Config() {
     value_to_key[Value::CONNECTION_CQG_ACCOUNT_ID] = "Connection.Cqg/account_id";
 }
 
-void Config::put_value(Value value, boost::property_tree::ptree pt) {
-    config[value] = pt.get<std::string>(value_to_key[value]);
-}
-
 namespace ptree = boost::property_tree;
 
 void Config::load(const std::string& path) {
@@ -33,7 +29,7 @@ void Config::load(const std::string& path) {
     }
 }
 
-void Config::save(const std::string& path) {
+void Config::save(const std::string& path) const {
     ptree::ptree pt;
     for(auto const& c: config) {
         pt.put(ptree::ptree::path_type(value_to_key[c.first], '/'), c.second);
@@ -41,21 +37,21 @@ void Config::save(const std::string& path) {
     ptree::ini_parser::write_ini(path, pt);
 }
 
-void Config::set(std::map<Value, std::string> values) {
+void Config::set(const std::map<Value, std::string>& values) {
     for(auto v: values) {
         config[v.first] = v.second;
     }
 }
 
-void Config::set(Value category, std::string value) {
+void Config::set(Value category, const std::string& value) {
     config[category] = value;
 }
 
-std::unique_ptr<std::map<Value, std::string>> Config::get_connection_config() {
-    auto conf = std::make_unique<std::map<Value, std::string>>();
+std::map<Value, std::string> Config::get_connection_config() const {
+    auto conf = std::map<Value, std::string>();
     for(auto const pair: config) {
         if(value_to_key[pair.first].find("Connection") == 0) {
-            conf->insert(pair);
+            conf.insert(pair);
         }
     }
     return conf;

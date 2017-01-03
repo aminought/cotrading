@@ -14,7 +14,7 @@ public:
 
     std::vector<std::shared_ptr<HorizontalLine>> get_lines() const;
     nlohmann::json to_json() const;
-    void set_lines(const std::vector<std::shared_ptr<HorizontalLine>> lines);
+    void set_lines(const std::vector<std::shared_ptr<HorizontalLine>>& lines);
     void add_line(const std::shared_ptr<HorizontalLine> line);
 
 private:

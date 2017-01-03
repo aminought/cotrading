@@ -63,14 +63,14 @@ std::unique_ptr<Contract> CqgProvider::resolve_symbol(Symbol) {
     return std::make_unique<Contract>(id, symbol_str);
 }
 
-std::vector<TimeBar> CqgProvider::get_historical_data(std::shared_ptr<Contract> contract, bpt::time_duration duration) {
+std::vector<TimeBar> CqgProvider::get_historical_data(const Contract& contract, bpt::time_duration duration) {
     auto base_time = this->client->get_session().lock()->get_base_time();
     auto client_msg = WA::ClientMsg();
     auto tb_req = client_msg.add_time_bar_request();
     tb_req->set_request_id(0);
     tb_req->set_request_type(WA::TimeBarRequest::GET);
     auto params = tb_req->mutable_time_bar_parameters();
-    params->set_contract_id(static_cast<unsigned int>(contract->get_id()));
+    params->set_contract_id(static_cast<unsigned int>(contract.get_id()));
     params->set_bar_unit(WA::TimeBarParameters::HOUR);
     params->set_units_number(1);
     params->set_from_utc_time((bpt::second_clock::universal_time() - base_time - duration).total_milliseconds());

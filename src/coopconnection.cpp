@@ -1,6 +1,11 @@
 #include "coopconnection.h"
 
 
+CoopConnection::CoopConnection(std::unique_ptr<CoopServer> server,
+                               std::unique_ptr<CoopClient> client,
+                               std::shared_ptr<ChartController> chart_controller):
+    server(std::move(server)), client(std::move(client)), chart_controller(chart_controller) { }
+
 CoopConnection::~CoopConnection() {
     if(this->server_started) {
         this->server->stop();
@@ -24,4 +29,12 @@ void CoopConnection::connect_to_coop_server() {
 
 void CoopConnection::send_coop_data(const CoopMessage &message) {
     this->server->add_server_message(message);
+}
+
+void CoopConnection::handle_client_message(const std::string& message) {
+    this->chart_controller->update_chart_based_on_message(message);
+}
+
+void CoopConnection::init_client() {
+    this->client->set_coop_connection(shared_from_this());
 }

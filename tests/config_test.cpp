@@ -15,10 +15,10 @@ TEST(LOAD, CONFIG_TEST) {
 
     c.load(file.fileName().toStdString());
     auto conf = c.get_connection_config();
-    EXPECT_EQ(conf->operator[](Value::CONNECTION_CQG_USER_NAME), "user");
-    EXPECT_EQ(conf->operator[](Value::CONNECTION_CQG_PASSWORD), "pass");
-    EXPECT_EQ(conf->operator[](Value::CONNECTION_CQG_CLIENT_ID), "cid");
-    EXPECT_EQ(conf->operator[](Value::CONNECTION_CQG_ACCOUNT_ID), "aid");
+    EXPECT_EQ(conf.at(Value::CONNECTION_CQG_USER_NAME), "user");
+    EXPECT_EQ(conf.at(Value::CONNECTION_CQG_PASSWORD), "pass");
+    EXPECT_EQ(conf.at(Value::CONNECTION_CQG_CLIENT_ID), "cid");
+    EXPECT_EQ(conf.at(Value::CONNECTION_CQG_ACCOUNT_ID), "aid");
 }
 
 TEST(SAVE, CONFIG_TEST) {

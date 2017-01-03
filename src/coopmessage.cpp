@@ -1,10 +1,11 @@
 #include "coopmessage.h"
 
+
 std::vector<std::shared_ptr<HorizontalLine>> CoopMessage::get_lines() const {
     return this->lines;
 }
 
-void CoopMessage::set_lines(const std::vector<std::shared_ptr<HorizontalLine>> lines) {
+void CoopMessage::set_lines(const std::vector<std::shared_ptr<HorizontalLine>>& lines) {
     this->lines = lines;
 }
 

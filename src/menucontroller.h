@@ -14,7 +14,7 @@ public:
     explicit MenuController(QObject *parent = 0);
     MenuController(std::shared_ptr<Config> config,
                    std::shared_ptr<ProviderConnection> provider_connection,
-                   ChartController* chart_controller,
+                   std::shared_ptr<ChartController> chart_controller,
                    std::shared_ptr<CoopConnection> coop_connection):
         config(config),
         provider_connection(provider_connection),
@@ -31,7 +31,7 @@ private:
     std::shared_ptr<ProviderConnection> provider_connection;
     std::shared_ptr<QuotesProvider> provider;
     std::shared_ptr<CoopConnection> coop_connection;
-    ChartController* chart_controller;
+    std::shared_ptr<ChartController> chart_controller;
 };
 
 #endif // MENUCONTROLLER_H

@@ -24,7 +24,7 @@ enum Opcode {
     BINARY = 130
 };
 
-std::string CqgClient::send(std::string message) {
+std::string CqgClient::send(const std::string&& message) {
     return this->client->send(message);
 }
 

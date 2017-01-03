@@ -17,6 +17,7 @@ public slots:
     QString load_client_id();
     QString load_account_id();
 private:
+    QString get(Value value);
     std::shared_ptr<Config> config;
 };
 
