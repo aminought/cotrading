@@ -18,7 +18,7 @@ public:
     virtual void logout() = 0;
     virtual std::unique_ptr<trading::model::Contract> resolve_symbol(trading::model::Symbol symbol) = 0;
     virtual std::vector<trading::model::TimeBar> get_historical_data(
-        const trading::model::Contract& contract, bpt::time_duration duration) = 0;
+        const trading::model::Contract& contract, const bpt::time_duration& duration) = 0;
 };
 
 }

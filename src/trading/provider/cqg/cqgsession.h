@@ -13,7 +13,8 @@ namespace cqg {
 
 class CqgSession: public provider::ProviderSession {
 public:
-    CqgSession(std::string token, bpt::ptime base_time): provider::ProviderSession(token), base_time(base_time) {}
+    CqgSession(std::string token, bpt::ptime base_time): provider::ProviderSession(std::move(token)), base_time(base_time) {}
+    CqgSession(std::string&& token, bpt::ptime base_time): provider::ProviderSession(std::move(token)), base_time(base_time) {}
     bpt::ptime get_base_time() const;
 private:
     bpt::ptime base_time;

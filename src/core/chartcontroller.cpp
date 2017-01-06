@@ -30,7 +30,7 @@ QVariantList ChartController::get_x() const {
     return x;
 }
 
-void ChartController::load_data(std::vector<trading::model::TimeBar>& time_bars) {
+void ChartController::load_data(const std::vector<trading::model::TimeBar>& time_bars) {
     auto y_min = time_bars[0].get_close();
     auto y_max = time_bars[0].get_close();
     auto x_min = time_bars[0].get_time();

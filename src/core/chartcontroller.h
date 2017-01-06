@@ -33,7 +33,7 @@ public:
     QVariantList get_x() const;
 
     std::vector<chart::HorizontalLine> get_lines() const;
-    void load_data(std::vector<trading::model::TimeBar>& time_bars);
+    void load_data(const std::vector<trading::model::TimeBar>& time_bars);
     void clear_data();
     void update_chart_based_on_message(const std::string& message);
 

@@ -9,7 +9,7 @@ namespace provider {
 
 class ProviderSession {
 public:
-    ProviderSession(std::string token): token(token) {}
+    explicit ProviderSession(std::string&& token): token(std::move(token)) {}
     std::string get_token() const;
 protected:
     std::string token;

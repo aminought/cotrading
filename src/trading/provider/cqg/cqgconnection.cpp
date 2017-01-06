@@ -34,8 +34,8 @@ std::unique_ptr<provider::QuotesProvider> CqgConnection::connect(const core::Con
 
         if(validate_credentials()) {
             std::unique_ptr<CqgClient> client = std::make_unique<CqgClient>(
-                                                    user_name, password,
-                                                    client_id, std::stoi(account_id));
+                                                    std::move(user_name), std::move(password),
+                                                    std::move(client_id), std::stoi(account_id));
             auto provider = std::make_unique<CqgProvider>(std::move(client));
             provider->logon();
             return std::move(provider);

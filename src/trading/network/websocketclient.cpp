@@ -64,7 +64,7 @@ std::string WebSocketClient::send(const std::string& message) {
     return answer;
 }
 
-std::string WebSocketClient::get_next_answer(std::chrono::system_clock::duration timeout) {
+std::string WebSocketClient::get_next_answer(const std::chrono::system_clock::duration& timeout) {
     auto start = std::chrono::system_clock::now();
     while(!this->answer_queue.read_available()) {
         if(std::chrono::system_clock::now() - start > timeout) {

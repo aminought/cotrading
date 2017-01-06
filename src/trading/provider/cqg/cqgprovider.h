@@ -14,13 +14,13 @@ namespace cqg {
 
 class CqgProvider: public provider::QuotesProvider {
 public:
-    CqgProvider(std::shared_ptr<CqgClient> client): client(client) {}
+    explicit CqgProvider(std::shared_ptr<CqgClient> client): client(client) {}
     ~CqgProvider();
     void logon() override;
     void logout() override;
     std::unique_ptr<trading::model::Contract> resolve_symbol(trading::model::Symbol symbol) override;
     std::vector<trading::model::TimeBar> get_historical_data(const trading::model::Contract& contract,
-            bpt::time_duration duration) override;
+            const bpt::time_duration& duration) override;
 private:
     std::shared_ptr<CqgClient> client;
     bool connected = false;

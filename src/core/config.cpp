@@ -28,7 +28,7 @@ void Config::load(const std::string& path) {
             auto value = pt.get<std::string>(ptree::ptree::path_type(pair.second, '/'));
             config[pair.first] = value;
         }
-    } catch(ptree::ini_parser_error e) {
+    } catch(ptree::ini_parser_error&) {
         QFile file(QString(this->path.data()));
     }
 }
@@ -42,7 +42,7 @@ void Config::save(const std::string& path) const {
 }
 
 void Config::set(const std::map<Value, std::string>& values) {
-    for(auto v: values) {
+    for(auto const& v: values) {
         config[v.first] = v.second;
     }
 }

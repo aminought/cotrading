@@ -8,7 +8,8 @@ SettingsController::SettingsController(QObject*) {
 
 }
 
-void SettingsController::save_config(QString user_name, QString password, QString client_id, QString account_id) {
+void SettingsController::save_config(const QString& user_name, const QString& password,
+                                     const QString& client_id, const QString& account_id) {
     config->set(Value::CONNECTION_CQG_USER_NAME, user_name.toStdString());
     config->set(Value::CONNECTION_CQG_PASSWORD, password.toStdString());
     config->set(Value::CONNECTION_CQG_CLIENT_ID, client_id.toStdString());

@@ -69,7 +69,7 @@ std::unique_ptr<trading::model::Contract> CqgProvider::resolve_symbol(trading::m
 }
 
 std::vector<trading::model::TimeBar> CqgProvider::get_historical_data(
-        const trading::model::Contract& contract, bpt::time_duration duration) {
+        const trading::model::Contract& contract, const bpt::time_duration& duration) {
     auto base_time = this->client->get_session().lock()->get_base_time();
     auto client_msg = WA::ClientMsg();
     auto tb_req = client_msg.add_time_bar_request();

@@ -22,7 +22,7 @@ public:
     void connect(const std::string& uri);
     void disconnect();
     std::string send(const std::string& message);
-    std::string get_next_answer(std::chrono::system_clock::duration timeout);
+    std::string get_next_answer(const std::chrono::system_clock::duration& timeout);
 private:
     AsioTlsClient client;
     blf::spsc_queue<std::string, blf::capacity<10000>> answer_queue;

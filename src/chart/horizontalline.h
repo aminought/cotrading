@@ -7,7 +7,7 @@ namespace chart {
 
 class HorizontalLine {
 public:
-    HorizontalLine(int y): y(y) {}
+    explicit HorizontalLine(int y): y(y) {}
     int get_y() const;
 private:
     int y;

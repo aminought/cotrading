@@ -34,7 +34,7 @@ std::string CqgClient::send(const std::string&& message) {
     return this->client->send(message);
 }
 
-std::string CqgClient::get_next_answer(std::chrono::_V2::system_clock::duration timeout) {
+std::string CqgClient::get_next_answer(const std::chrono::system_clock::duration& timeout) {
     return this->client->get_next_answer(timeout);
 }
 
@@ -54,7 +54,7 @@ int CqgClient::get_account_id() const {
     return account_id;
 }
 
-void CqgClient::create_session(std::string token, bpt::ptime base_time) {
+void CqgClient::create_session(const std::string& token, const bpt::ptime& base_time) {
     session = std::make_shared<CqgSession>(token, base_time);
 }
 
