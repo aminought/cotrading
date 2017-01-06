@@ -7,18 +7,29 @@
 namespace ct {
 namespace core {
 
+namespace ptree = boost::property_tree;
+
 std::string Config::path = "config.ini";
 
 std::map<Value, std::string> Config::value_to_key;
 
 Config::Config() {
+    this->init_value_to_key_map();
+    this->init_empty_config();
+}
+
+void Config::init_value_to_key_map() {
     value_to_key[Value::CONNECTION_CQG_USER_NAME] = "Connection.Cqg/user_name";
     value_to_key[Value::CONNECTION_CQG_PASSWORD] = "Connection.Cqg/password";
     value_to_key[Value::CONNECTION_CQG_CLIENT_ID] = "Connection.Cqg/client_id";
     value_to_key[Value::CONNECTION_CQG_ACCOUNT_ID] = "Connection.Cqg/account_id";
 }
 
-namespace ptree = boost::property_tree;
+void Config::init_empty_config() {
+    for(auto const& pair: this->value_to_key) {
+        this->config[pair.first] = "";
+    }
+}
 
 void Config::load(const std::string& path) {
     try {

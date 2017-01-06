@@ -27,6 +27,8 @@ private:
     static std::string path;
     static std::map<Value, std::string> value_to_key;
     std::map<Value, std::string> config;
+    void init_value_to_key_map();
+    void init_empty_config();
 };
 
 }
