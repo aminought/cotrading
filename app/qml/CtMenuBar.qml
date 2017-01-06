@@ -15,9 +15,8 @@ MenuBar {
             onTriggered: {
                 var component = Qt.createComponent("CtSettings.qml")
                 if (component.status === Component.Ready) {
-                    var dialog = component.createObject(window, {
-                                                            modality: Qt.WindowModal
-                                                        })
+                    var dialog = component.createObject(window)
+                    dialog.modality = Qt.WindowModal
                     dialog.visible = true
                 }
             }

@@ -5,8 +5,7 @@ import QtQuick.Layouts 1.1
 
 Dialog {
     id: ctSettings
-    modality: Qt.WindowModal
-    visible: true
+    visible: false
     title: qsTr("Settings")
     standardButtons: StandardButton.Ok | StandardButton.Apply | StandardButton.Cancel
     onAccepted: _settings_controller.save_config(userName.text, password.text,
