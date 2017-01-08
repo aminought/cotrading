@@ -38,32 +38,6 @@ MenuBar {
             id: cqgMenu
             title: qsTr("CQG")
 
-            function createValueAxis(min, max) {
-                ctChart.y_axis = Qt.createQmlObject(
-                            "import QtQuick 2.5; import QtCharts 2.0; ValueAxis {id: x_axis; min: "
-                            + min + "; max: " + max + " }", ctChart)
-                return ctChart.y_axis
-            }
-
-            function createDateTimeAxis(format) {
-                var create_str = "import QtQuick 2.5; import QtCharts 2.0; DateTimeAxis {id: y_axis; format: '" + format
-                        + "'; min: _chart_controller.x_min; max: _chart_controller.x_max}"
-                ctChart.x_axis = Qt.createQmlObject(create_str, ctChart)
-                return ctChart.x_axis
-            }
-
-            function createChart() {
-                var line_series = ctChart.createSeries(
-                            ChartView.SeriesTypeLine, "",
-                            cqgMenu.createDateTimeAxis("dd.MM.yyyy hh:mm"),
-                            cqgMenu.createValueAxis(_chart_controller.y_min,
-                                                    _chart_controller.y_max))
-                var prices = _chart_controller.y
-                var times = _chart_controller.x
-                for (var i = 0; i < prices.length; ++i) {
-                    line_series.append(times[i], prices[i])
-                }
-            }
 
             MenuItem {
                 property bool connected: false
@@ -74,16 +48,14 @@ MenuBar {
                     if (!connected) {
                         _menu_controller.connect(100)
                         statusLabel.text = qsTr("Connection established")
-                        cqgMenu.createChart()
+                        ctChart.loadChart()
                         connected = true
                         text = qsTr("Disconnect")
                     } else {
                         _menu_controller.disconnect()
                         connected = false
                         text = qsTr("Connect")
-                        ctChart.removeAllSeries()
-                        ctChart.x_axis.destroy()
-                        ctChart.y_axis.destroy()
+                        ctChart.clearChart()
                         statusLabel.text = qsTr("Disconnected")
                     }
                 }

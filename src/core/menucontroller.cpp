@@ -38,7 +38,6 @@ void MenuController::send_coop_data() {
     auto lines = chart_controller->get_lines();
     coop::CoopMessage message;
     for(auto line: lines) {
-        qDebug() << line.get_y();
         message.add_line(std::make_shared<chart::HorizontalLine>(line));
     }
     this->coop_connection->send_coop_data(message);
