@@ -8,7 +8,7 @@ namespace core {
 
 void MenuController::connect(trading::provider::ProviderType provider_type) {
     trading::provider::ProviderConnectionFactory factory;
-    this->provider_connection = factory.get_provider_connection(provider_type);
+    this->provider_connection->change_connection(factory.get_provider_connection(provider_type));
     this->provider = provider_connection->connect(*config);
     if(provider != nullptr) {
         auto contract = provider->resolve_symbol(trading::model::Symbol::CL);

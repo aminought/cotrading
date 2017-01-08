@@ -12,7 +12,10 @@ namespace cqg {
 class CqgConnection: public provider::ProviderConnection {
 public:
     CqgConnection() = default;
-    std::unique_ptr<provider::QuotesProvider> connect(const core::Config& config) override;
+    std::shared_ptr<provider::QuotesProvider> connect(const core::Config& config) override;
+    std::shared_ptr<provider::QuotesProvider> get_provider() override;
+private:
+    std::shared_ptr<provider::QuotesProvider> provider;
 };
 
 }

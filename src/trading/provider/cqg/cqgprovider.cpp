@@ -51,12 +51,12 @@ void CqgProvider::logout() {
     this->connected = false;
 }
 
-std::unique_ptr<trading::model::Contract> CqgProvider::resolve_symbol(trading::model::Symbol) {
+std::unique_ptr<trading::model::Contract> CqgProvider::resolve_symbol(trading::model::Symbol symbol) {
     auto client_msg = WA::ClientMsg();
     auto info_req = client_msg.add_information_request();
     info_req->set_id(0);
     auto res_req = info_req->mutable_symbol_resolution_request();
-    res_req->set_symbol("CL");
+    res_req->set_symbol(trading::model::Contract::get_name_of_symbol(symbol));
     auto answer = this->client->send(client_msg.SerializeAsString());
 
     auto server_msg = WA::ServerMsg();

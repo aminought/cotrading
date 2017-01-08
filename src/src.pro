@@ -28,7 +28,9 @@ SOURCES += \
     trading/provider/providerconnectionfactory.cpp \
     trading/provider/providersession.cpp \
     trading/provider/quotesprovider.cpp \
-    ../libs/cqg_webapi/webapi_1.pb.cc
+    ../libs/cqg_webapi/webapi_1.pb.cc \
+    core/toolbarcontroller.cpp \
+    trading/provider/sharedproviderconnection.cpp
 
 HEADERS += \
     chart/horizontalline.h \
@@ -52,7 +54,9 @@ HEADERS += \
     trading/provider/providersession.h \
     trading/provider/quotesprovider.h \
     ../libs/cqg_webapi/webapi_1.pb.h \
-    ../libs/json/src/json.hpp
+    ../libs/json/src/json.hpp \
+    core/toolbarcontroller.h \
+    trading/provider/sharedproviderconnection.h
 
 LIBS += -L/usr/local/lib -lprotobuf -pthread -lpthread -lboost_system -lssl -lcrypto -lboost_date_time
 

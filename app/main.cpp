@@ -3,10 +3,12 @@
 #include <QQmlContext>
 #include <QDebug>
 #include <boost/optional.hpp>
+#include <trading/provider/sharedproviderconnection.h>
 #include "core/chartcontroller.h"
 #include "core/config.h"
 #include "core/menucontroller.h"
 #include "core/settingscontroller.h"
+#include "core/toolbarcontroller.h"
 #include "trading/provider/providerconnection.h"
 #include "coop/coopclient.h"
 #include "coop/coopserver.h"
@@ -20,10 +22,8 @@ int main(int argc, char *argv[]) {
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
-    std::shared_ptr<ct::core::Config> config = std::make_shared<ct::core::Config>();
+    auto config = std::make_shared<ct::core::Config>();
     config->load();
-
-    std::shared_ptr<ct::trading::provider::ProviderConnection> provider_connection;
 
     auto chart = find_object(engine, "ctChart");
     if(!chart.is_initialized()) {
@@ -32,16 +32,20 @@ int main(int argc, char *argv[]) {
     }
     auto chart_controller = std::make_shared<ct::core::ChartController>(nullptr, chart.get());
 
-    std::unique_ptr<ct::coop::CoopServer> coop_server = std::make_unique<ct::coop::CoopServer>();
-    std::unique_ptr<ct::coop::CoopClient> coop_client = std::make_unique<ct::coop::CoopClient>();
-    std::shared_ptr<ct::coop::CoopConnection> coop_connection =
-        std::make_shared<ct::coop::CoopConnection>(std::move(coop_server), std::move(coop_client), chart_controller);
+    auto coop_server = std::make_unique<ct::coop::CoopServer>();
+    auto coop_client = std::make_unique<ct::coop::CoopClient>();
+    auto coop_connection = std::make_shared<ct::coop::CoopConnection>(
+                               std::move(coop_server), std::move(coop_client), chart_controller);
     coop_connection->init_client();
 
+    auto provider_connection = std::make_shared<ct::trading::provider::SharedProviderConnection>();
     ct::core::MenuController menu_controller(config, provider_connection, chart_controller, coop_connection);
+    ct::core::ToolBarController toolbar_controller(provider_connection, chart_controller);
     ct::core::SettingsController settings_controller(config);
 
+
     engine.rootContext()->setContextProperty("_menu_controller", &menu_controller);
+    engine.rootContext()->setContextProperty("_toolbar_controller", &toolbar_controller);
     engine.rootContext()->setContextProperty("_settings_controller", &settings_controller);
     engine.rootContext()->setContextProperty("_chart_controller", &*chart_controller);
 

@@ -9,7 +9,7 @@ namespace trading {
 namespace provider {
 namespace cqg {
 
-std::unique_ptr<provider::QuotesProvider> CqgConnection::connect(const core::Config& config) {
+std::shared_ptr<provider::QuotesProvider> CqgConnection::connect(const core::Config& config) {
     auto conn_conf = config.get_connection_config();
 
     auto validate_config = [&conn_conf] () {
@@ -36,9 +36,9 @@ std::unique_ptr<provider::QuotesProvider> CqgConnection::connect(const core::Con
             std::unique_ptr<CqgClient> client = std::make_unique<CqgClient>(
                                                     std::move(user_name), std::move(password),
                                                     std::move(client_id), std::stoi(account_id));
-            auto provider = std::make_unique<CqgProvider>(std::move(client));
-            provider->logon();
-            return std::move(provider);
+            this->provider = std::make_shared<CqgProvider>(std::move(client));
+            this->provider->logon();
+            return this->provider;
         } else {
             qDebug() << "Wrong arguments";
         }
@@ -46,6 +46,10 @@ std::unique_ptr<provider::QuotesProvider> CqgConnection::connect(const core::Con
         qDebug() << "Empty config";
     }
     return nullptr;
+}
+
+std::shared_ptr<QuotesProvider> CqgConnection::get_provider() {
+    return this->provider;
 }
 
 }

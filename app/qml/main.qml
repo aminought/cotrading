@@ -36,6 +36,7 @@ ApplicationWindow {
 
     Component.onCompleted: {
         ctToolBar.ctChartCanvas = ctChart.ctChartCanvas
+        ctToolBar.ctChart = ctChart
         ctMenuBar.ctChart = ctChart
     }
 }

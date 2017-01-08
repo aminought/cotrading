@@ -2,8 +2,8 @@
 #define MENUCONTROLLER_H
 
 #include <QObject>
+#include <trading/provider/sharedproviderconnection.h>
 #include "coop/coopconnection.h"
-#include "trading/provider/providerconnection.h"
 #include "trading/provider/providerconnectionfactory.h"
 #include "config.h"
 #include "chartcontroller.h"
@@ -17,7 +17,7 @@ class MenuController : public QObject {
 public:
     explicit MenuController(QObject *parent = 0);
     MenuController(std::shared_ptr<Config> config,
-                   std::shared_ptr<trading::provider::ProviderConnection> provider_connection,
+                   std::shared_ptr<trading::provider::SharedProviderConnection> provider_connection,
                    std::shared_ptr<ChartController> chart_controller,
                    std::shared_ptr<coop::CoopConnection> coop_connection):
         config(config),
@@ -32,7 +32,7 @@ public slots:
     void send_coop_data();
 private:
     std::shared_ptr<Config> config;
-    std::shared_ptr<trading::provider::ProviderConnection> provider_connection;
+    std::shared_ptr<trading::provider::SharedProviderConnection> provider_connection;
     std::shared_ptr<trading::provider::QuotesProvider> provider;
     std::shared_ptr<coop::CoopConnection> coop_connection;
     std::shared_ptr<ChartController> chart_controller;

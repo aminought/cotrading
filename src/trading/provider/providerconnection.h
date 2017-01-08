@@ -13,7 +13,8 @@ namespace provider {
 class ProviderConnection {
 public:
     virtual ~ProviderConnection() = default;
-    virtual std::unique_ptr<QuotesProvider> connect(const core::Config& config) = 0;
+    virtual std::shared_ptr<QuotesProvider> connect(const core::Config& config) = 0;
+    virtual std::shared_ptr<QuotesProvider> get_provider() = 0;
 };
 
 }
